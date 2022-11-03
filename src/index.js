@@ -4,7 +4,14 @@ import "./index.css";
 import * as serviceWorker from "./seviceWorker";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
-  Navigation,Footer,Home,About,Contact,Blog,Posts,Post
+  Navigation,
+  Footer,
+  Home,
+  About,
+  Contact,
+  Blog,
+  Posts,
+  Post,
 } from "./components";
 
 ReactDOM.render(
@@ -26,6 +33,129 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import './index.css';
+
+// import App from './App';
+// import * as serviceWorker from './seviceWorker';
+// import { BrowserRouter} from 'react-router-dom';
+
+// ReactDOM.render(
+//   <BrowserRouter>
+//     <App/>
+//   </BrowserRouter>,document.getElementById("root"));
+
+// serviceWorker.unregister();
+
+
+
+
+
+
+
+// export { default as Navigation } from "./Navigation";
+// export { default as Footer } from "./Footer";
+// export { default as Home } from "./Home";
+// export { default as About } from "./About";
+// export { default as Contact } from "./Contact";
+// export { default as Blog } from "./blog/Blog";
+// export { default as Posts } from "./blog/Posts";
+// export { default as Post } from "./blog/Post";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import "./index.css";
+// import App from "./App";
+// import * as serviceWorker from "./seviceWorker";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// // import {
+// //   Navigation,Footer,Home,About,Contact,Blog,Posts,Post
+// // } from "./components";
+// import Navigation from "./components/Navigation"
+// import About from "./components/About"
+// import Contact from "./components/Contact"
+// import Footer from "./components/Footer"
+// import Home from "./components/Home";
+// ReactDOM.render(
+//   <Router>
+  
+//     <Navigation />
+//     <App/>
+//     <Routes>
+//       <Route path="/" element={<Home/>} />
+//       <Route path="/about" element={<About />} />
+//       <Route path="/contact" element={<Contact />} />
+//       {/* <Route path="/blog" element={<Blog />}>
+//         <Route path="" element={<Posts />} />
+//         <Route path=":postSlug" element={<Post />} />
+//       </Route> */}
+//     </Routes>
+//     <Footer />
+//   </Router>,
+
+//   document.getElementById("root")
+// );
+
+// serviceWorker.unregister();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

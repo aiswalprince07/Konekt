@@ -1,0 +1,24 @@
+.post{
+    background-color: white;
+    max-width: 500px;
+    border: 1px solid rgb(72, 53, 53);
+    margin-bottom: 45px;  /*margin bahar se space and padding ander se space deta h !!*/
+}
+
+.post_header{
+    display:flex;
+    align-items: center;
+    padding:6px;
+}
+.h5{
+    padding-top: 8px;
+}
+.post_image{
+    width:100%;  /* isse header and image dono same size ke ho gye !!*/
+    border: 2px solid lightblue;
+    object-fit: contain;
+}
+.post_text{
+    font-weight: normal;
+    padding: 20px 15px;
+}
