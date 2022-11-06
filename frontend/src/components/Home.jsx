@@ -28,7 +28,7 @@ function Home() {
     // this is where the code runs 
   },[posts])
   // posts me ---> run everytime the variable posts changes !!
-
+  
   return (
     <div className="home">
       
