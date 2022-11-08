@@ -1,38 +1,80 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import * as serviceWorker from "./seviceWorker";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {
-  Navigation,
-  Footer,
-  Home,
-  About,
-  Contact,
-  Blog,
-  Posts,
-  Post,
-} from "./components";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './seviceWorker';
 
 ReactDOM.render(
-  <Router>
-    <Navigation />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/blog" element={<Blog />}>
-        <Route path="" element={<Posts />} />
-        <Route path=":postSlug" element={<Post />} />
-      </Route>
-    </Routes>
-    <Footer />
-  </Router>,
-
-  document.getElementById("root")
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import "./index.css";
+// import App from "./App";
+// import * as serviceWorker from "./seviceWorker";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import {
+//   Navigation,
+//   Footer,
+//   Home,
+//   About,
+//   Contact,
+//   Blog,
+//   Posts,
+//   Post,
+// } from "./components";
+// import Signup from "./components/Login/Login";
+// import Group from "./components/Group";
+
+
+// ReactDOM.render(
+//   <Router>
+//     <Navigation />
+//     {/* <App/> */}
+//     {/* <Signup/> */}
+//     <Routes>
+      
+//       <Route path="/" element={<Home />} />
+//       <Route path="/group" element={<Group/>} />
+//       <Route path="/login" element={<Signup/>}/>
+//       <Route path="/about" element={<About />} />
+//       <Route path="/contact" element={<Contact />} />
+//       <Route path="/blog" element={<Blog />}>
+//         <Route path="" element={<Posts />} />
+//         <Route path=":postSlug" element={<Post />} />
+//       </Route>
+//     </Routes>
+//     <Footer />
+//   </Router>,
+
+//   document.getElementById("root")
+// );
+
+// serviceWorker.unregister();
 
 
 
