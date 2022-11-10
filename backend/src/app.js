@@ -48,10 +48,10 @@ app.get("/index",auth,(req,res)=>{
         // res.status(201).render("index");
 }) 
 
-app.get("/login",(req,res)=>{
+app.get("/signin",(req,res)=>{
     // res.status(201).render("login");
 }) 
-app.get("/register",(req,res)=>{
+app.get("/signup",(req,res)=>{
     // res.status(201).render("register");
 })
 
@@ -62,22 +62,23 @@ app.get("/logout",auth, async(req,res)=>{   // CHECKING user genuin or not in mi
         res.clearCookie("jwt");
         await req.user.save();
         console.log("successfully logout");
-        res.render("login",{
-            flag:false,
-    });
+    //     res.render("login",{
+    //         flag:false,
+    // });
+    res.status(201).json({message:"You are logout"});
     } catch (error) {
-        res.status(401).render(error);
+        res.status(401).json({message:"You are not Signin"});
     } 
 }) 
 
 
-app.post("/register",async(req,res)=>{
+app.post("/signup",async(req,res)=>{
 
     try {
         const password=req.body.password;
         const cpassword=req.body.confirmpassword;
-        console.log(password);
-        console.log(cpassword);
+        // console.log(password);
+        // console.log(cpassword);
 
         if(password==cpassword){
             const registerVillager = new User({
@@ -92,20 +93,22 @@ app.post("/register",async(req,res)=>{
                 // confirmpassword:"1234",
             })
             const token=await registerVillager.generateAuthToken();
-            // res.cookie("jwt",token,{
-            //     expires:new Date(Date.now()+30000),
-            //     httpOnly:true, 
-            //     // secure:true 
-            // })
+            res.cookie("jwt",token,{
+                expires:new Date(Date.now()+300000),
+                httpOnly:true, 
+                // secure:true 
+            })
             console.log(registerVillager);
             const registered= await registerVillager.save();
+            res.status(201).json({message:"saved successfully"});
             // res.status(201).render("index",{
             //     flag:true,
             //     username:`${req.body.fullname}`,
-            // });
+            // }); 
         }
         else{
-            res.send("passwords are not matching");
+            // console.log("error"); 
+            res.json({message:"passwords are not matching"});
         }
     } catch (error) {
         res.send(400).send("error");
@@ -113,36 +116,42 @@ app.post("/register",async(req,res)=>{
 })
 
  
-app.post("/login",async(req,res)=>{
+app.post("/signin",async(req,res)=>{
     try {
-        const email=req.body.emailaddress;
+        console.log("in backend");
+        const email=req.body.email;
         const password=req.body.password;
         // console.log(`${email} + ${password}`);
         
         const useremail= await User.findOne({email:email});
-        const ismatch= await bcrypt.compare(password,useremail.password);
+        if(useremail==null){
+            res.status(400).json({message:"email does not exist",error:true});
+        }else{
 
-        const token=await useremail.generateAuthToken();
-        // res.cookie("jwt",token,{
-        //     expires:new Date(Date.now()+300000),
-        //     httpOnly:true,
-        //     secure:true 
-        // })
-
+            const ismatch= await bcrypt.compare(password,useremail.password);
+            
+            const token=await useremail.generateAuthToken();
+            res.cookie("jwt",token,{
+                    expires:new Date(Date.now()+3000000),
+                    httpOnly:true
+                    // secure:true   
+                })
+                
         
         if(ismatch){
             const str=useremail.fullname;
             const upper=str.toUpperCase();
-            
+            res.status(201).json({message:"successfully login"});
             // res.status(201).render("index",{
-            //     flag:true,
-            //     username:`${upper}`,
-            // });
+                //     flag:true,
+                //     username:`${upper}`,
+                // });
         }else{
-            res.send("invalid login Detials ");
+            res.status(400).json({message:"invalid login Detials"});
+        }
         }
     } catch (error) {
-        res.status(400).send("invalid login Details");
+        res.status(400).json({message:"invalid login Detials"});
     } 
 })
 
@@ -150,16 +159,20 @@ app.post("/login",async(req,res)=>{
 
 app.post('/createpost',reqireLogin,async(req,res)=>{
     try {
+        console.log("sfsff");
         const createPost=new Post({
             title :req.body.title,
             body:req.body.body,
+            pic:req.body.pic,
             postedBy:req.user
         })
-
+        
+        console.log(createPost);
         const registered= await createPost.save();
+        res.status(201).json({message:"Image successfully post"});
         
     } catch (error) {
-        res.status(400).send("invalid post request");
+        res.status(400).json({message:"invalid login Detials",error:true});
     }
 })
 
@@ -168,7 +181,7 @@ app.get('/mypost',reqireLogin,async(req,res)=>{
         const mypost=Post.find({postedBy:req.user._id});
         res.send({mypost});
     } catch (error) {
-        res.status(400).send("invalid Mypost request");
+        res.status(400).json({message:"invalid Mypost request"});
     }
 })
 

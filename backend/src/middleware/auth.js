@@ -5,10 +5,10 @@ const auth=async(req,res, next)=>{
     try{
         const token=req.cookies.jwt;   //token which are present in pc 
         const verifyUser=jwt.verify(token,process.env.SECRET_KEY);
-        console.log(verifyUser);
+        // console.log(verifyUser);
         
         const user= await User.findOne({_id:verifyUser._id});
-        console.log(user);// document
+        // console.log(user);// document
         
         
         // for logout purpose
@@ -17,7 +17,7 @@ const auth=async(req,res, next)=>{
 
         next(); //its go back ....if we not use next never go back
     }catch(error){
-        res.status(401).send(error);
+        res.status(401).json({message:"You are not Signin"});
     } 
 
 }

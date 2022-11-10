@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import NavBar from "./components/Navbar";
 import {BrowserRouter,Route, Routes} from "react-router-dom";
 import Home from './components/Home'
@@ -7,9 +7,12 @@ import Profile from './components/Profile'
 import Signup from './components/Signup'
 import CreatePost from './components/CreatePost'
 // import {reducer,initialState} from './components/reducers/userReducer'
-import UserProfile from './components/UserProfile'
-import SubscribedUserPosts from './components/SubscribesUserPosts'
-import Reset from './components/Reset'
+// import UserProfile from './components/UserProfile'
+// import SubscribedUserPosts from './components/SubscribesUserPosts'
+// import Reset from './components/Reset'
+
+
+
 
 function App(){
     return(
@@ -22,9 +25,9 @@ function App(){
       <Route path="/signup" element={<Signup />}/>
       <Route path="/profile" element={<Profile />}/>
       <Route path="/create" element={<CreatePost />}/>
-      <Route path="/profile/:userid" element={<UserProfile/>}/>
-      <Route path="/myfollowingpost" element={<SubscribedUserPosts />}/>
-      <Route path="/reset" element={<Reset />}/>
+      {/* <Route path="/profile/:userid" element={<UserProfile/>}/> */}
+      {/* <Route path="/myfollowingpost" element={<SubscribedUserPosts />}/> */}
+      {/* <Route path="/reset" element={<Reset />}/> */}
 {/* //       <Route path="/reset/:token" element={<NewPassword />}/> */}
       
       </Routes>
