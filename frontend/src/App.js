@@ -1,38 +1,53 @@
-// import React from "react";
+import React ,{useEffect,createContext,useReducer,useContext} from "react";
 import NavBar from "./components/Navbar";
-import {BrowserRouter,Route, Routes} from "react-router-dom";
+import {BrowserRouter,Route, Routes,useNavigate} from "react-router-dom";
 import Home from './components/Home'
 import Signin from './components/SignIn'
 import Profile from './components/Profile'
 import Signup from './components/Signup'
 import CreatePost from './components/CreatePost'
-// import {reducer,initialState} from './components/reducers/userReducer'
+import {reducer,initialState} from './reducers/userReducer'
 // import UserProfile from './components/UserProfile'
 // import SubscribedUserPosts from './components/SubscribesUserPosts'
 // import Reset from './components/Reset'
 
+export const UserContext=createContext() 
 
+const Routing=()=>{
+  let navigate=useNavigate();
+  const {state,dispatch}=useContext(UserContext);
+  useEffect(()=>{
+    const user=JSON.parse(localStorage.getItem("user"));
+    dispatch({type:"USER",payload:user});
+    if(user){
+      navigate("/");
+    }else{
+      navigate("/signin");
+    }
+  },[])
 
-
-function App(){
-    return(
-        <div>
-        <BrowserRouter>
-        <NavBar/>
-        <Routes>
-      <Route exact path="/" element={<Home />} /> 
+  return (
+    <Routes>
+    <Route exact path="/" element={<Home />} /> 
       <Route path="/signin" element={<Signin />}/>
       <Route path="/signup" element={<Signup />}/>
       <Route path="/profile" element={<Profile />}/>
       <Route path="/create" element={<CreatePost />}/>
-      {/* <Route path="/profile/:userid" element={<UserProfile/>}/> */}
-      {/* <Route path="/myfollowingpost" element={<SubscribedUserPosts />}/> */}
-      {/* <Route path="/reset" element={<Reset />}/> */}
-{/* //       <Route path="/reset/:token" element={<NewPassword />}/> */}
-      
-      </Routes>
-        </BrowserRouter>
+    </Routes>
+  );
+}
+
+function App(){
+  const [state,dispatch]=useReducer(reducer,initialState);
+    return(
+      <UserContext.Provider value={{state,dispatch}}>
+        <div>
+          <BrowserRouter>
+            <NavBar/>
+            <Routing/>
+          </BrowserRouter>
         </div>
+      </UserContext.Provider>
     )
 }
 export default App;
@@ -47,6 +62,11 @@ export default App;
 
 
 
+
+// {/* <Route path="/profile/:userid" element={<UserProfile/>}/> */}
+// {/* <Route path="/myfollowingpost" element={<SubscribedUserPosts />}/> */}
+// {/* <Route path="/reset" element={<Reset />}/> */}
+// {/* //       <Route path="/reset/:token" element={<NewPassword />}/> */}
 
 
 

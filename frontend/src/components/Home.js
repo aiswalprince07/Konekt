@@ -1,8 +1,46 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 
+import {FcLike} from 'react-icons/fc'
+import {AiFillLike,AiFillDislike} from 'react-icons/ai'
 const Home=()=>{
+  const [data,setData]=useState([])
+  useEffect(()=>{
+    fetch('/allpost',{
+      headers:{
+        "Authorization":"Bearer"+localStorage.getItem("jwt")
+      }
+    }).then(res=>res.json())
+    .then(result=>{
+      console.log(result)
+      setData(result.mypost)
+    })
+  },[])
+  
   return(
-    <h1>Home</h1>
+    <div className="home">
+    {
+      data.map(item=>{
+        return(
+          <div className="card home-card">
+              <h5>{item.postedBy.name}</h5>
+              <div className="card-image">
+                <img alt="" src={item.pic}/>
+              </div>
+              <div className="card-content">
+              <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}> <FcLike/> </i>
+              <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}> <AiFillLike/> </i>
+              <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}> <AiFillDislike/> </i>
+                <h6>{item.title}</h6>
+                <p>{item.body}</p>
+                <input type="text" placeholder="add a comment" />
+              </div>
+          </div> 
+
+        )
+      })
+    }
+  </div>
+
   )
 }
 
@@ -11,10 +49,80 @@ export default Home;
 
 
 
+    // <div className="card home-card">
+    //     <h5>ramesh</h5>
+    //     <div className="card-image">
+    //       <img alt="" src="https://images.unsplash.com/photo-1664575196044-195f135295df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
+    //     </div>
+    //     <div className="card-content">
+    //     <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}>favorite</i>
+    //       <h6>title</h6>
+    //       <p>Amazing post</p>
+    //       <input type="text" placeholder="add a comment" />
+    //     </div>
+    // </div>
+    // <div className="card home-card">
+    //     <h5>ramesh</h5>
+    //     <div className="card-image">
+    //       <img alt="" src="https://images.unsplash.com/photo-1664575196044-195f135295df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
+    //     </div>
+    //     <div className="card-content">
+    //     <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}>favorite</i>
+    //       <h6>title</h6>
+    //       <p>Amazing post</p>
+    //       <input type="text" placeholder="add a comment" />
+    //     </div>
+    // </div>
 
 
 
+// import React from "react";
+// import "../App.css";
 
+// const Home=()=>{
+//   return(
+//     <div className="home">
+//       <div className="card home-card">
+//           <h5>ramesh</h5>
+//           <div className="card-image">
+//             <img alt="" src="https://images.unsplash.com/photo-1664575196044-195f135295df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
+//           </div>
+//           <div className="card-content">
+//           <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}>favorite</i>
+//             <h6>title</h6>
+//             <p>Amazing post</p>
+//             <input type="text" placeholder="add a comment" />
+//           </div>
+//       </div>
+//       <div className="card home-card">
+//           <h5>ramesh</h5>
+//           <div className="card-image">
+//             <img alt="" src="https://images.unsplash.com/photo-1664575196044-195f135295df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
+//           </div>
+//           <div className="card-content">
+//           <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}>favorite</i>
+//             <h6>title</h6>
+//             <p>Amazing post</p>
+//             <input type="text" placeholder="add a comment" />
+//           </div>
+//       </div>
+//       <div className="card home-card">
+//           <h5>ramesh</h5>
+//           <div className="card-image">
+//             <img alt="" src="https://images.unsplash.com/photo-1664575196044-195f135295df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
+//           </div>
+//           <div className="card-content">
+//           <i className="material-icons" style={{color:" hsl(0, 37%, 30%)"}}>favorite</i>
+//             <h6>title</h6>
+//             <p>Amazing post</p>
+//             <input type="text" placeholder="add a comment" />
+//           </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default Home;
 
 
 

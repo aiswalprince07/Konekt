@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // import "../App.css";
 import {Link, useNavigate} from "react-router-dom";
+import {UserContext} from '../App'
 import M from 'materialize-css'
 const Signin=()=>{
+  const {state,dispatch}=useContext(UserContext);
     let navigate=useNavigate();
     const [email,setemail]=useState("");
     const [password,setpasssword]=useState("");
@@ -38,6 +40,10 @@ const Signin=()=>{
             if(data.message==="passwords are not matching"){
                 M.toast({html:data.message,classes:"#c62828 red darken-3"});  
             }else{
+                localStorage.setItem("jwt",data.token);
+                localStorage.setItem("user",JSON.stringify(data.user));
+                
+                dispatch({type:"USER",payload:data.user});
                 M.toast({html:data.message,classes:"#43a047 green darken-1"});  
             }
             navigate("/profile");

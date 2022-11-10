@@ -1,6 +1,9 @@
 import React from "react";
+import { UserContext } from "./App";
 import "../App.css";
+
 import {Link} from "react-router-dom"
+
 
 
 const NavBar =()=>{

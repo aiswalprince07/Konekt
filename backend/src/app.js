@@ -141,7 +141,9 @@ app.post("/signin",async(req,res)=>{
         if(ismatch){
             const str=useremail.fullname;
             const upper=str.toUpperCase();
-            res.status(201).json({message:"successfully login"});
+            const {_id,fullname,email,pic} = useremail;
+            // res.status(201).json({message:"successfully login"});
+            res.status(201).json({token,user:{_id,fullname,email},message:"successfully login"});
             // res.status(201).render("index",{
                 //     flag:true,
                 //     username:`${upper}`,
@@ -178,8 +180,35 @@ app.post('/createpost',reqireLogin,async(req,res)=>{
 
 app.get('/mypost',reqireLogin,async(req,res)=>{
     try {
-        const mypost=Post.find({postedBy:req.user._id});
-        res.send({mypost});
+        // const mypost=Post.find({postedBy:req.user});
+        Post.find()
+        .populate("postedBy","_id name")
+        .then((mypost)=>{
+            console.log("dff");
+            res.json({mypost})
+        }).catch(err=>{
+            console.log(err)
+        })
+        // res.send({mypost});
+    } catch (error) {
+        res.status(400).json({message:"invalid Mypost request"});
+    }
+})
+
+app.get('/allpost',reqireLogin,async(req,res)=>{
+    try {
+        // const mypost=Post.find({postedBy:req.user});
+        // console.log(mypost);
+        // res.status(201).json({mypost});
+
+        Post.find()
+        .populate("postedBy","_id name")
+        .then((mypost)=>{
+            console.log("dff");
+            res.json({mypost})
+        }).catch(err=>{
+            console.log(err)
+        })
     } catch (error) {
         res.status(400).json({message:"invalid Mypost request"});
     }
